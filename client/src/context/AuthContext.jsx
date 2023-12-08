@@ -50,16 +50,17 @@ export const AuthProvider = ({children}) => {
     setUser(null);
   };
 
+  // Effect para limpiar errores
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
         setErrors([]);
-      }, 5000);
+      }, 4000);
       return () => clearTimeout(timer);
     }
   }, [errors]);
 
-
+  // cookies
   useEffect(() => {
     async function verifyLogin() {
       const cookies = Cookies.get();

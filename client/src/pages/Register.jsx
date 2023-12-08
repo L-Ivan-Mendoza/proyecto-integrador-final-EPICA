@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useForm } from "react-hook-form"
 import { useAuth } from "../context/AuthContext"
 import { Link, useNavigate } from "react-router-dom"
+import NavBarPublic from '../components/NavBarPublic';
 
 function Register() {
 
@@ -28,6 +29,10 @@ function Register() {
         // }
       })
   return (
+    <>
+
+    <NavBarPublic/>
+
     <div className="row align-items-center vh-100 px-5">
     <div className="container-fluid my-5 col-md-3 col-sm-6 bg-dark text-light border rounded-4 border-info">
         <h2 className='text-center my-4'>Crear Cuenta</h2>
@@ -79,6 +84,8 @@ function Register() {
     </Form>
     </div>
     </div>
+
+    </>
   )
 }
 

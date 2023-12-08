@@ -1,25 +1,29 @@
 import express from "express"
-import morgan from "morgan"
+import {settingDotEnvDB} from "./config/dotenv.js"
 import cors from "cors"
-import cookieParser from "cookie-parser"
+import morgan from "morgan"
 import { connectMongo } from "./database/db.js"
 import authRoutes from "./routes/auth.routes.js"
 import postRoutes from "./routes/post.routes.js"
 import commentRoutes from "./routes/comment.routes.js"
+import cookieParser from "cookie-parser"
 
 
-export const app = express()
+const app = express()
 connectMongo()
 
 app.use(express.json())
-app.use(cors())
-app.use(morgan("tiny"))
 app.use(cookieParser())
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}))
+app.use(morgan("tiny"))
 
 app.use(authRoutes)
 app.use(postRoutes)
 app.use(commentRoutes)
 
-app.use("/", (req, res) => {
-    res.send("Welcome!")
-})
+const PORT = settingDotEnvDB().port || 5000;
+
+app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));

@@ -29,18 +29,14 @@
 
 
 
-//import axios from "./setCredentialsAxios";
+//import axios from "axios"
+import axios from "./setCredentialsAxios";
 
-import axios from "axios"
+// pedido con user como atributo
+export const registerReq = (user) => axios.post(`/register`, user);
 
-const API = axios.create({baseURL: 'http://localhost:3000'})
-//pedidos al servidor con axios
 
-//creamos registerReq con un user por atributo y vamos a pasarle a la petición con ese user
-export const registerReq = (user) => API.post(`/register`, user);
+export const loginReq = (user) => axios.post(`/login`, user);
 
-//creamos el loginRequest
-export const loginReq = (user) => API.post(`/login`, user);
-
-//creamos la verificación del token desde el fron
-export const verifyToken = () => API.get(`/verifyToken`);
+//verificación del token desde el front
+export const verifyToken = () => axios.get(`/verifyToken`);

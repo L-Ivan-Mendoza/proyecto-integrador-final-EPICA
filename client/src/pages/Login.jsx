@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useEffect } from 'react';
+import NavBarPublic from "../components/NavBarPublic"
 
 export function Login() {
   
@@ -20,6 +21,9 @@ export function Login() {
         signin(values)
       })
   return (
+    <>
+    <NavBarPublic/>
+
     <div className="row align-items-center vh-100 px-5">
     <div className="container-fluid col-md-3 col-sm-6 bg-dark text-light border rounded-4 border-info">
         <h2 className='text-center my-4'>Iniciar Sesión</h2>
@@ -59,5 +63,6 @@ export function Login() {
     </Form>
     </div>
     </div>
+    </>
   );
 }

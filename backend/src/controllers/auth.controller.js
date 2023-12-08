@@ -1,9 +1,8 @@
-// Authenticate user
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { SECRET_TOKEN } from "../config/dotenv.js";
-import {createAccessToken} from "../middlewares/jwt.validator.js"
+import { createAccessToken } from "../middlewares/jwt.validator.js"
 
 // Register user
 export const register = async (req, res) => {
@@ -73,6 +72,7 @@ export const logout = (req, res) => {
     return res.status(200).json({message: "Usuario deslogueado"})
 }
 
+// Profile
 export const profile = async (req, res) => {
     try {
         const userFound = await User.findById(req.user.id)
@@ -94,6 +94,7 @@ export const profile = async (req, res) => {
 
 const { secret } = SECRET_TOKEN();
 
+// verificacion de token backend
 export const verifyToken = async (req, res) => {
   const { token } = req.cookies;
 
