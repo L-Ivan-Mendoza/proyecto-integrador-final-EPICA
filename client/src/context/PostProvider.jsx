@@ -43,6 +43,7 @@ export const PostProvider = ({children}) => {
     const getPostById = async (id) => {
         try {
         const res = await getPostByIdReq(id)
+        // console.log("res:" , res.data);
         return res.data
         } catch (error) {
         console.log(error)

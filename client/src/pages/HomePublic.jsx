@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import NavBarPublic from "../components/NavBarPublic"
 import {usePost} from "../context/PostProvider"
 import PostCardPublic from "../components/PostCardPublic"
+import {EmojiSmileUpsideDown} from "react-bootstrap-icons"
 
 function HomePublic() {
 
@@ -15,7 +16,10 @@ function HomePublic() {
     return (
       <>
         <NavBarPublic/>
-        <h1>No existen posteos.</h1>
+        <h1 className='d-flex col align-items-center justify-content-center'
+        style={{height: "100vh"}}>
+        ¡Ups! No hay posteos. <EmojiSmileUpsideDown/>
+        </h1>
       </>
     );
 

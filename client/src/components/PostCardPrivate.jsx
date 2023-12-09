@@ -1,9 +1,12 @@
 import Card from 'react-bootstrap/Card'
+import { useNavigate } from 'react-router-dom'
 import {usePost} from '../context/PostProvider'
 import { Button } from 'react-bootstrap'
-import { useState, useEffect } from 'react'
+//import { useState, useEffect } from 'react'
 
 const PostCardPrivate = ({post}) => {
+
+  const navigate = useNavigate()
 
     // const [authorUsername, setAuthorUsername] = useState(null);
 
@@ -40,20 +43,23 @@ const PostCardPrivate = ({post}) => {
   return (
     <>
     <div className="container">
-        <Card className="bg-dark text-white p-1 m-5" >
+        <Card className="bg-dark text-white p-1 my-3" >
         <Card.Img src={post.imgURL} alt="Imagen del Posteo" />
         <Card.ImgOverlay>
             <Card.Title>{post.title}</Card.Title>
-            <Card.Text>
+            <Card.Text className="text-truncate overflow-hidden">
             {post.description}
             </Card.Text>
-            <Card.Text>
+            <Card.Text className="text-truncate overflow-hidden">
                 @{post.autor} - 
                 Posteado: {formattedDatePost} - 
                 Ultima actualización: {formattedDateUpdate}
             </Card.Text>
+        <Button variant="warning" className='d-block my-5' 
+        onClick={() => navigate(`/profile/post/${post._id}`)} >
+          Ver más
+          </Button>
         </Card.ImgOverlay>
-        <Button variant="warning" className='my-5' >Ver más</Button>
         </Card>
       </div>
     </>

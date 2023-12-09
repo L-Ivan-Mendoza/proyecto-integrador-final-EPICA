@@ -45,7 +45,7 @@ function NavBarProfile() {
     };
     return (
         <>
-        <Navbar expand="lg" className="bg-body-tertiary ">
+        <Navbar expand="lg" className="bg-body-tertiary">
           <Container className="justify-content-between">
             <Navbar.Brand onClick={() => navigate('/profile')}>TusViajes.com</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -60,12 +60,12 @@ function NavBarProfile() {
                 <Button variant="danger" onClick={() => signout()} >Salir</Button>
                 </Nav>
                 
-                {/* Se agrega contenedor para que se vean las opciones en el menu hamburguesa */}
+                {/* Se agrega contenedor para que se vean las opciones en el menú hamburguesa */}
                 <div className="d-md-none">
                   <ul className="navbar-nav me-auto-mb-2 mb-md-0">
                     <li className="nav-item">
                       <a className="nav-link" onClick={handleShowModal}>+ Agregar Tarea</a>
-                      <a className="nav-link" onClick={() => signout()}>Salir</a>
+                      <a className="nav-link" onClick={() => signout()} style={{color: "red"}} >Salir</a>
                     </li>
                   </ul>
                 </div>
