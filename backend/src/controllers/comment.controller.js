@@ -4,9 +4,7 @@ import Post from "../models/post.model.js"
 
 export const getAllComments = async (req, res) => {
     try {
-        const allComments = await Comment.find({
-            post: req.post.id
-        }) 
+        const allComments = await Comment.find() 
         if (!allComments) return res.status(404).json({message: "No se encontraron comentarios"})
         res.status(200).json(allComments)
     } catch (error) {
@@ -29,11 +27,13 @@ export const getCommentById = async (req, res) => {
 }
 
 export const createComment = async(req, res) => {
-    const {description} = req.body
+    const {description, postId} = req.body
+    console.log("desc:", description)
     try {
         const newComment = new Comment({
             description,
-            autor: req.user.id // viene de la authRequired (next)
+            autor: req.user.id, // viene de la authRequired (next)
+            from: postId,
         })
 
         const commentSaved = await newComment.save()

@@ -6,8 +6,7 @@ export const validateRegister = [
     body("username").notEmpty().withMessage("El usuario no debe estar vacio")
     .isLength({min: 6}).withMessage("El usuario debe contener al menos 6 caracteres"),
 
-    body("email").isEmail().withMessage("Ingrese un email valido")
-    .notEmpty().withMessage("El email no debe estar vacio"),
+    body("email").isEmail().withMessage("Ingrese un email valido"),
 
     body("password").notEmpty().withMessage("El campo de contraseña no debe estar vacio")
     //.isLength({min: 8, max: 12}).custom(value => /^[a-zA-Z0-9]+$/.test(value))
@@ -20,8 +19,7 @@ export const validateRegister = [
 // Validate login
 export const validateLogin = [
 
-    body("email").isEmail().withMessage("Ingrese un email válido")
-    .notEmpty().withMessage("El email no debe estar vacio"),
+    body("email").isEmail().withMessage("Ingrese un email válido"),
 
     body("password").notEmpty().withMessage("El campo de contraseña no debe estar vacio")
     //.isLength({min: 8, max: 12}).custom(value => /^[a-zA-Z0-9]+$/.test(value)) // *esto hacia que me de invalid value
@@ -32,15 +30,14 @@ export const validateLogin = [
 
 // Validate Error
 export const handleErrorValidations = (req, res, next) => {
-    const err = validationResult(req)
+    const error = validationResult(req)
     
     // if (!err.isEmpty()){
     //     return res.status(400).json({message: "Error en la validación de atributos", err})
     // }
 
-    // Por algun motivo cuando llega al password error tira invalid value y no hay mas que eso en el array*
-    if (!err.isEmpty()){
-        return res.status(400).json([err.errors[0].msg])
+    if (!error.isEmpty()){
+        return res.status(400).json([error.errors[0].msg])
     }
     next()
 }
