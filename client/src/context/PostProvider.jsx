@@ -33,7 +33,7 @@ export const PostProvider = ({children}) => {
     const deletePost = async (id) => {
         try {
           const res = await deletePostReq(id)
-          if (res.status === 200) setTask(task.filter((task) => task._id !== id))
+          if (res.status === 200) setPost(post.filter((post) => post._id !== id))
         } catch (error) {
           console.log(error)
         }

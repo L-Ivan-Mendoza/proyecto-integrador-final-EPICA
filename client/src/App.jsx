@@ -7,6 +7,7 @@ import {PrivateRoutes} from "./routes/PrivateRoutes"
 import HomeProfile from "./pages/HomeProfile"
 import { PostProvider } from "./context/PostProvider"
 import IndividualPost from "./pages/IndividualPost"
+import { CommentProvider } from "./context/CommentProvider"
 
 function App() {
 
@@ -14,19 +15,21 @@ function App() {
   return (
     <AuthProvider>
       <PostProvider>
+      <CommentProvider>
         <Router>
           <Routes>
-            <Route path="/" element={<HomePublic />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+             <Route path="/" element={<HomePublic />} />
+             <Route path="/login" element={<Login />} />
+             <Route path="/register" element={<Register />} />
 
-          <Route element={<PrivateRoutes />}>
-            <Route path="/profile" element={<HomeProfile/>} />
-            <Route path="/profile/post/:id" element={<IndividualPost/>} />
-          </Route>
+            <Route element={<PrivateRoutes />}>
+              <Route path="/profile" element={<HomeProfile/>} />
+             <Route path="/profile/post/:id" element={<IndividualPost/>} />
+            </Route>
           
-          </Routes>
-        </Router>
+           </Routes>
+          </Router>
+        </CommentProvider>
       </PostProvider>
     </AuthProvider>
   )

@@ -16,20 +16,22 @@ const PostCardPublic = ({post}) => {
 
   return (
     <>
-     <Card className="bg-dark text-white p-1 m-5" >
+      <div className="container">
+     <Card className="bg-dark text-white p-1 my-3" >
       <Card.Img src={post.imgURL} alt="Imagen del Posteo" />
       <Card.ImgOverlay>
         <Card.Title>{post.title}</Card.Title>
-        <Card.Text>
+        <Card.Text className="text-truncate overflow-hidden">
           {post.description}
         </Card.Text>
-        <Card.Text>
+        <Card.Text className="text-truncate overflow-hidden">
             @{post.autor} - 
             Posteado: {formattedDatePost} - 
             Ultima actualización: {formattedDateUpdate}
         </Card.Text>
       </Card.ImgOverlay>
     </Card>
+    </div>
     </>
   )
 }

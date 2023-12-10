@@ -27,11 +27,15 @@ function HomePublic() {
     <>
     <NavBarPublic/>
     <h1 className="text-center pt-3">Posteos</h1>
-    <div >
-        {post.map((post, i) => (
-          <PostCardPublic post={post} key={i} />
+    <div className="container">
+      <div className="row">
+          {post.map((post, i) => (
+        <div className='col-md-6' key={i}>  
+            <PostCardPublic post={post} />
+        </div>
         ))}
       </div>
+    </div>
     </>
   )
 }

@@ -14,8 +14,6 @@ const IndividualPost = () => {
   const {id} = useParams()
     const { getPostById, post } = usePost();
 
-    console.log(id)
-    
     useEffect(() => {
       async function fetchData() {
         setLoading(true)
