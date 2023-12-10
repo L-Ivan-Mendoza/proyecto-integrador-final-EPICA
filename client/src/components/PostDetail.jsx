@@ -84,7 +84,7 @@ const PostDetail = ({post}) => {
             </Card.Text>
             <Button className='me-2 mb-1' variant="dark"><PencilSquare/> Editar</Button>
             <Button className='me-2 mb-1' variant="danger"><Trash3Fill/> Eliminar Posteo</Button>
-            <Button variant="warning" onClick={handleShowModal}><ChatDots/> Comentar </Button>
+            <Button className='me-2 mb-1' variant="warning" onClick={handleShowModal}><ChatDots/> Comentar </Button>
         </Card.Body>
         <ModalNewComment showModal={showModal} handleClose={handleCloseModal} addComment={addComment} />
       </Card>

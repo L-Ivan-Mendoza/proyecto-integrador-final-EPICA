@@ -47,7 +47,7 @@ function NavBarProfile() {
         <>
         <Navbar expand="lg" className="bg-body-tertiary">
           <Container className="justify-content-between">
-            <Navbar.Brand onClick={() => navigate('/profile')}>TusViajes.com</Navbar.Brand>
+            <Navbar.Brand style={{ cursor: 'pointer' }} onClick={() => navigate('/profile')}>TusViajes.com</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav ">
               <Nav className="me-auto px-3">
