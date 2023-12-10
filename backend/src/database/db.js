@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
-import { settingsDotEnvDb } from "../config/dotenv.js"
+import { settingDotEnvDB } from "../config/dotenv.js"
 
-const {db} = settingsDotEnvDb()
+const {db} = settingDotEnvDB()
 
 export const connectMongo = async () => {
     try {
