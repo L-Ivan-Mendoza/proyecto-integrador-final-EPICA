@@ -3,7 +3,7 @@ import { useFormik } from "formik"
 import * as Yup from 'yup'
 import {useComment} from "../context/CommentProvider"
 
-const EditComment = ({showModal, handleClose, editComment, comment}) => {
+const EditComment = ({showModal, handleClose, editComment, comment, idPost}) => {
 
     const {description, _id} = comment
 
@@ -23,8 +23,7 @@ const EditComment = ({showModal, handleClose, editComment, comment}) => {
         onSubmit:async (values) => {
             console.log('Datos del formulario', JSON.stringify(values));
 
-            await editComment(values, _id)
-            console.log("values: ", values, _id);
+            await editComment(values, _id, idPost)
             handleClose()
         },
     })

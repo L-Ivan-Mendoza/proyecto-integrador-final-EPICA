@@ -25,8 +25,6 @@ export const CommentProvider = ({children}) => {
 
     // Crear comment
     const createComment = async (comment, postId) => {
-        console.log("idpost:", postId)
-        console.log("newcomment: ",comment)
         try {
             const res = await createCommentReq(comment, postId)
             return res
@@ -48,9 +46,9 @@ export const CommentProvider = ({children}) => {
     }
 
     // delete comment
-    const deleteComment = async (id) => {
+    const deleteComment = async (idPost, idComment) => {
         try {
-          const res = await deleteCommentReq(id)
+          const res = await deleteCommentReq(idPost, idComment)
           if (res.status === 200) setComment(comment.filter((comment) => comment._id !== id))
         } catch (error) {
           console.log(error)
@@ -69,10 +67,9 @@ export const CommentProvider = ({children}) => {
     };
 
     // Update comment
-    const updateComment = async (id, comment) => {
-        console.log("valP: ", id , );
+    const updateComment = async (comment, idComment, idPost) => {
         try {
-        const res = await updateCommentReq(id, comment)
+        const res = await updateCommentReq(idPost, idComment, comment)
         res.data
         } catch (error) {
         console.log(error)

@@ -3,9 +3,10 @@ import { useFormik } from "formik"
 import * as Yup from 'yup'
 import {useComment} from "../context/CommentProvider"
 
-const ModalNewComment = ({showModal, handleClose}) => {
+const ModalNewComment = ({showModal, handleClose, post}) => {
 
     const {createComment} = useComment()
+    const {_id} = post
 
     ///// Utilizamos Yup para validar los imputs ////////
     const validationSchema = Yup.object({
@@ -23,7 +24,8 @@ const ModalNewComment = ({showModal, handleClose}) => {
         onSubmit:async (values) => {
             console.log('Datos del formulario', JSON.stringify(values));
 
-            await createComment(values)
+            await createComment(values, _id)
+            console.log("CRea:", _id);
             handleClose()
         },
     })

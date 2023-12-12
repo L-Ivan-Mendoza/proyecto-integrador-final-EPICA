@@ -20,11 +20,15 @@ export const AuthProvider = ({children}) => {
     // errors
     const [errors, setErrors] = useState([])
 
+    // para el manejo del token
+    const [tokenData, setTokenData] = useState(null)
+
     const signup = async (user) => {
         try {
           const res = await registerReq(user)
             setUser(res.data)
             setIsAuth(true)
+            
         } catch (error) {
             //if (error.response && error.response.data)
             setErrors(error.response.data)
@@ -67,10 +71,11 @@ export const AuthProvider = ({children}) => {
       if (cookies.token) {
         try {
           const res = await verifyToken(cookies.token);
-          console.log(res);
           if (res.data) {
             setIsAuth(true);
             setUser(res.data);
+            setTokenData(res.data)
+            //console.log("TOKEN: ", res.data);
           } else {
             setIsAuth(false);
           }
@@ -90,6 +95,7 @@ export const AuthProvider = ({children}) => {
             signup,
             signin,
             signout,
+            tokenData,
             user,
             isAuth,
             errors,

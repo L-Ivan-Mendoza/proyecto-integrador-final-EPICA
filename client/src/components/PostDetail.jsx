@@ -9,6 +9,7 @@ import ModalNewComment from "./ModalNewComment"
 import {toast} from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import EditPost from './EditPost'
+import { useAuth } from '../context/AuthContext'
 
 const PostDetail = ({post}) => {
 
@@ -16,10 +17,16 @@ const PostDetail = ({post}) => {
 
     const {deletePost, updatePost} = usePost()
 
-   const { getAllComments, comment } = useComment();
+   const { getAllComments, comment } = useComment()
+
+   const {tokenData} = useAuth()
 
    const idPost = post._id
-
+   const autorPost = post.autor
+   const autor = tokenData.id
+   const username = post.autor
+  
+console.log(username);
    useEffect( () => {
      getAllComments(idPost)
    }, [])
@@ -99,7 +106,7 @@ const PostDetail = ({post}) => {
 
   return (
       <>
-        <div className="container col-6 my-5">
+        <div className="container col-md-6 my-5">
         <Card>
         <Card.Img variant="top" src={post.imgURL} />
         <Card.Body>
@@ -112,18 +119,28 @@ const PostDetail = ({post}) => {
                 Posteado: {formattedDatePost} - 
                 Ultima actualización: {formattedDateUpdate}
             </Card.Text>
+            { autor === autorPost ? (
+              <>
             <Button className='me-2 mb-1' variant="dark" onClick={handleShowModal2}><PencilSquare/> Editar</Button>
             <Button className='me-2 mb-1' variant="danger" onClick={() => {delPost(idPost)}}><Trash3Fill/> Eliminar Posteo</Button>
+              </>
+              ): null}
             <Button className='me-2 mb-1' variant="warning" onClick={handleShowModal}><ChatDots/> Comentar </Button>
         </Card.Body>
-        <ModalNewComment showModal={showModal} handleClose={handleCloseModal} addComment={addComment} />
+        <ModalNewComment showModal={showModal} handleClose={handleCloseModal} addComment={addComment} post={post} />
         <EditPost showModal={showModal2} handleClose={handleCloseModal2} editPost={editPost} post={post} />
-      <div className="row">
-        {comment.map((comment, i) => (
-          <div className='col-md-6' key={i}>
-           <Comments comment={comment}/>
-        </div>
-          ))}
+      <div className="">
+        {comment.map((comment, i) => {
+          if(comment.from === idPost) {
+            return (
+              <div className='container-fluid' key={i}>
+                <Comments comment={comment} />
+              </div>
+            )
+          }else {
+            return null
+          }
+          })}
       </div>
       </Card>
       </div>

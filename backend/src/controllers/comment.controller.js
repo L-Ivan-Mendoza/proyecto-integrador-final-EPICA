@@ -27,13 +27,13 @@ export const getCommentById = async (req, res) => {
 }
 
 export const createComment = async(req, res) => {
-    const {description, postId} = req.body
-    console.log("desc:", description)
+    const {description} = req.body
+    const {id} = req.params
     try {
         const newComment = new Comment({
-            description,
+            description: description.description,
             autor: req.user.id, // viene de la authRequired (next)
-            from: postId,
+            from: id,
         })
 
         const commentSaved = await newComment.save()
@@ -58,13 +58,13 @@ export const updateComment = async (req, res) => {
             return res.status(403).json({ message: 'No tienes permisos para editar este comentario' });
         }
 
-    
-        const commentUpdate = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
+        const {description} = req.body
+        const commentUpdate = await Comment.findByIdAndUpdate(req.params.id, description, { new: true });
+        
         if (!commentUpdate) {
             return res.status(404).json({ message: 'Comentario no encontrado' });
         }
-
+        
         res.status(200).json(commentUpdate);
     } catch (error) {
         res.status(400).json({ message: 'Error al editar comentario' });
