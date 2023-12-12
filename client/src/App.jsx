@@ -8,6 +8,8 @@ import HomeProfile from "./pages/HomeProfile"
 import { PostProvider } from "./context/PostProvider"
 import IndividualPost from "./pages/IndividualPost"
 import { CommentProvider } from "./context/CommentProvider"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -16,6 +18,7 @@ function App() {
     <AuthProvider>
       <PostProvider>
       <CommentProvider>
+      <ToastContainer />
         <Router>
           <Routes>
              <Route path="/" element={<HomePublic />} />
