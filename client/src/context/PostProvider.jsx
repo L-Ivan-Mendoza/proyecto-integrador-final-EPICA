@@ -12,7 +12,6 @@ export const usePost = () => {
 
 export const PostProvider = ({children}) => {
     const [post, setPost] = useState([])
-
     // Crear Posteo
     const createPost = async (post) => {
         //console.log(post)
@@ -32,7 +31,7 @@ export const PostProvider = ({children}) => {
     // delete Post
     const deletePost = async (id) => {
         try {
-          const res = await deletePostReq(id)
+            const res = await deletePostReq(id)
           if (res.status === 200) setPost(post.filter((post) => post._id !== id))
         } catch (error) {
           console.log(error)
@@ -52,6 +51,7 @@ export const PostProvider = ({children}) => {
 
     // Update post
     const updatePost = async (id, post) => {
+        console.log("idpost: ", id);
         try {
         const res = await updatePostReq(id, post)
         res.data

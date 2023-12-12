@@ -70,6 +70,7 @@ export const CommentProvider = ({children}) => {
 
     // Update comment
     const updateComment = async (id, comment) => {
+        console.log("valP: ", id , );
         try {
         const res = await updateCommentReq(id, comment)
         res.data
