@@ -1,6 +1,4 @@
 import {Schema, model} from "mongoose"
-import userSchema from "./user.model.js"
-import commentSchema from "./comment.model.js"
 
 
 const postSchema = new Schema(
@@ -18,10 +16,10 @@ const postSchema = new Schema(
         ref: "User",
         require: true
     },
-    comments:{
-        type: Schema.Types.ObjectId,
-        ref: "Comment"
-    },
+    // autorName:{
+    //     type: String,
+    //     required: true
+    // },
     imgURL: {
         type: String,
         trim: true,

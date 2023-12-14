@@ -14,8 +14,10 @@ const commentSchema = new Schema(
         require: true
     },
     from: {
-        type: Schema.Types.ObjectId,
-        ref: "Post",
+        // type: Schema.Types.ObjectId,
+        // ref: "Post",
+        // require: true
+        type: String,
         require: true
     }
 },

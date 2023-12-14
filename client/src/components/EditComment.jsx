@@ -3,10 +3,9 @@ import { useFormik } from "formik"
 import * as Yup from 'yup'
 import {useComment} from "../context/CommentProvider"
 
-const ModalNewComment = ({showModal, handleClose, post}) => {
+const EditComment = ({showModal, handleClose, editComment, comment, idPost}) => {
 
-    const {createComment} = useComment()
-    const {_id} = post
+    const {description, _id} = comment
 
     ///// Utilizamos Yup para validar los imputs ////////
     const validationSchema = Yup.object({
@@ -16,7 +15,7 @@ const ModalNewComment = ({showModal, handleClose, post}) => {
     /////// Utilizamos Formik para la gestion de datos del formulario //////////
     const formik = useFormik({
         initialValues: {
-            description: '',
+            description: description,
         },
 
         validationSchema: validationSchema,
@@ -24,8 +23,7 @@ const ModalNewComment = ({showModal, handleClose, post}) => {
         onSubmit:async (values) => {
             console.log('Datos del formulario', JSON.stringify(values));
 
-            await createComment(values, _id)
-            console.log("CRea:", _id);
+            await editComment(values, _id, idPost)
             handleClose()
         },
     })
@@ -35,7 +33,7 @@ const ModalNewComment = ({showModal, handleClose, post}) => {
         
     <Modal show={showModal} onHide={handleClose} >
         <Modal.Header closeButton>
-            <Modal.Title>Crear Comentario</Modal.Title>
+            <Modal.Title>Editar Comentario</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -59,7 +57,7 @@ const ModalNewComment = ({showModal, handleClose, post}) => {
                 </div>
                 
                 <div className="text-end">
-                    <Button className='px-5' variant='success' type='submit' > Publicar </Button>
+                    <Button className='px-5' variant='success' type='submit' > Editar </Button>
                 </div>
 
             </Form>
@@ -70,4 +68,4 @@ const ModalNewComment = ({showModal, handleClose, post}) => {
 )
 }
 
-export default ModalNewComment
+export default EditComment

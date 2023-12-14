@@ -5,23 +5,30 @@ import { Button } from 'react-bootstrap'
 import {ChatDots, PencilSquare, Trash3Fill} from "react-bootstrap-icons"
 import Comments from "./Comments"
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import ModalNewComment from "./ModalNewComment"
 import {toast} from "react-toastify"
+import { useNavigate } from "react-router-dom"
+import EditPost from './EditPost'
+import { useAuth } from '../context/AuthContext'
 
 const PostDetail = ({post}) => {
 
-   ////// Se llama a los comentarios pasandole la id del post
-   const id = useParams()
-   const { getAllComments, comment } = useComment();
- 
-   const postId = id.id
+    const navigate = useNavigate()
 
-  console.log(postId);
+    const {deletePost, updatePost} = usePost()
 
+   const { getAllComments, comment } = useComment()
+
+   const {tokenData} = useAuth()
+
+   const idPost = post._id
+   const autorPost = post.autor
+   const autor = tokenData.id
+   const username = post.autor
+  
+console.log(username);
    useEffect( () => {
-     // console.log(postId)
-     getAllComments(postId)
+     getAllComments(idPost)
    }, [])
 
     ////// Incorporacion del modal para crear comments  
@@ -35,11 +42,19 @@ const PostDetail = ({post}) => {
         setShowModal(false)
     }
 
-    const addComment = async (newComment, postId) => {
+    const [showModal2, setShowModal2] = useState(false)
+
+    const handleShowModal2 = () => {
+        setShowModal2(true)
+    }
+
+    const handleCloseModal2 = () => {
+        setShowModal2(false)
+    }
+
+    const addComment = async (newComment, idPost) => {
       try{
-        const res = await createComment(newComment, postId)
-        console.log("res: ", postId);
-        return res
+        const res = await createComment(newComment, idPost)
 
         toast.success('¡Comentario publicado!', {
             position: toast.POSITION.BOTTOM_RIGHT,
@@ -67,9 +82,31 @@ const PostDetail = ({post}) => {
   const formattedDatePost = `${day}/${month}/${year}`
   const formattedDateUpdate = `${day}/${month}/${year}`
 
+  
+  /// funcion para eliminar post e ir a /profile
+  const delPost = (idPost) => {
+    deletePost(idPost)
+    navigate('/profile')
+    toast.success('La tarea se eliminó con éxito', {
+      position: toast.POSITION.BOTTOM_RIGHT, autoClose: 2000,
+    })
+  }
+
+   /// funcion para editar post
+   const editPost = async (post, id) => {
+    const res = await updatePost(idPost, post)
+
+    toast.success('La tarea se editó con éxito', {
+      position: toast.POSITION.BOTTOM_RIGHT, autoClose: 2000,
+    })
+
+  }
+
+
+
   return (
       <>
-        <div className="container col-6 my-5">
+        <div className="container col-md-6 my-5">
         <Card>
         <Card.Img variant="top" src={post.imgURL} />
         <Card.Body>
@@ -82,19 +119,30 @@ const PostDetail = ({post}) => {
                 Posteado: {formattedDatePost} - 
                 Ultima actualización: {formattedDateUpdate}
             </Card.Text>
-            <Button className='me-2 mb-1' variant="dark"><PencilSquare/> Editar</Button>
-            <Button className='me-2 mb-1' variant="danger"><Trash3Fill/> Eliminar Posteo</Button>
-            <Button variant="warning" onClick={handleShowModal}><ChatDots/> Comentar </Button>
+            { autor === autorPost ? (
+              <>
+            <Button className='me-2 mb-1' variant="dark" onClick={handleShowModal2}><PencilSquare/> Editar</Button>
+            <Button className='me-2 mb-1' variant="danger" onClick={() => {delPost(idPost)}}><Trash3Fill/> Eliminar Posteo</Button>
+              </>
+              ): null}
+            <Button className='me-2 mb-1' variant="warning" onClick={handleShowModal}><ChatDots/> Comentar </Button>
         </Card.Body>
-        <ModalNewComment showModal={showModal} handleClose={handleCloseModal} addComment={addComment} />
-      </Card>
-      <div className="row">
-        {comment.map((comment, i) => (
-          <div className='col-md-6' key={i}>
-           <Comments comment={comment}/>
-        </div>
-          ))}
+        <ModalNewComment showModal={showModal} handleClose={handleCloseModal} addComment={addComment} post={post} />
+        <EditPost showModal={showModal2} handleClose={handleCloseModal2} editPost={editPost} post={post} />
+      <div className="">
+        {comment.map((comment, i) => {
+          if(comment.from === idPost) {
+            return (
+              <div className='container-fluid' key={i}>
+                <Comments comment={comment} />
+              </div>
+            )
+          }else {
+            return null
+          }
+          })}
       </div>
+      </Card>
       </div>
     </>
   )
