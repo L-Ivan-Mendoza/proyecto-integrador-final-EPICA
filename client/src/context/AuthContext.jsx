@@ -75,7 +75,7 @@ export const AuthProvider = ({children}) => {
             setIsAuth(true);
             setUser(res.data);
             setTokenData(res.data)
-            //console.log("TOKEN: ", res.data);
+            console.log("TOKEN: ", res.data);
           } else {
             setIsAuth(false);
           }

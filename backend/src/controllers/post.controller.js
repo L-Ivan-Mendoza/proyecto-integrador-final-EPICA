@@ -28,11 +28,13 @@ export const getPostById = async(req, res) => {
 export const createPost = async(req, res) => {
     const {title, description, imgURL} = req.body
     try {
+        //console.log("REQ: ", req.user);
         const newPost = new Post({
             title,
             description,
             imgURL,
-            autor: req.user.id // viene de la authRequired (next)
+            autor: req.user.id, // viene de la authRequired (next)
+            // autorName: req.user.username // el usuario solamente viene con id de authRequired
         })
 
         const postSaved = await newPost.save()
