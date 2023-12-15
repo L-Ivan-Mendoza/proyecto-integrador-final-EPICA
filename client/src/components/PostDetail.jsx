@@ -87,7 +87,7 @@ console.log(username);
   const delPost = (idPost) => {
     deletePost(idPost)
     navigate('/profile')
-    toast.success('La tarea se eliminó con éxito', {
+    toast.success('El post se eliminó con éxito', {
       position: toast.POSITION.BOTTOM_RIGHT, autoClose: 2000,
     })
   }
@@ -96,7 +96,7 @@ console.log(username);
    const editPost = async (post, id) => {
     const res = await updatePost(idPost, post)
 
-    toast.success('La tarea se editó con éxito', {
+    toast.success('El post se editó con éxito', {
       position: toast.POSITION.BOTTOM_RIGHT, autoClose: 2000,
     })
 

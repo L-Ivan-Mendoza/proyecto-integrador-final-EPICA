@@ -7,6 +7,7 @@ import authRoutes from "./routes/auth.routes.js"
 import postRoutes from "./routes/post.routes.js"
 import commentRoutes from "./routes/comment.routes.js"
 import cookieParser from "cookie-parser"
+import helmet from "helmet"
 
 
 const app = express()
@@ -19,11 +20,20 @@ app.use(cors({
     credentials: true,
 }))
 app.use(morgan("tiny"))
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", 'trusted-scripts.com'],
+            styleSrc: ["style.com"],
+        },
+    },
+}))
 
 app.use(authRoutes)
 app.use(postRoutes)
 app.use(commentRoutes)
 
-const PORT = settingDotEnvDB().port || 5000;
+const PORT = settingDotEnvDB().port || 5000
 
-app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`))
